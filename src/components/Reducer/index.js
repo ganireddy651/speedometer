@@ -7,7 +7,7 @@ const reducer = (state = speed, action) => {
     case 'ACCELERATE':
       return state + payload
     case 'BRAKE':
-      return state + payload
+      return state - payload
     default:
       return state
   }

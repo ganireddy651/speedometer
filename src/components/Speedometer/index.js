@@ -2,13 +2,18 @@ import {connect} from 'react-redux'
 import {accelerate, brake} from '../Actions'
 import './index.css'
 
-const Speedometer = ({speed, speedUp, brea}) => {
+// eslint-disable-next-line no-shadow
+const Speedometer = ({speed, accelerate, brake}) => {
   const onAccelerate = () => {
-    speedUp(10)
+    if (speed < 200) {
+      accelerate(10)
+    }
   }
 
-  const onbrake = () => {
-    brea(10)
+  const onBrake = () => {
+    if (speed > 0) {
+      brake(10)
+    }
   }
 
   return (
@@ -18,7 +23,7 @@ const Speedometer = ({speed, speedUp, brea}) => {
         <button type="button" onClick={onAccelerate}>
           Accelerate
         </button>{' '}
-        <button type="button" onClick={onbrake}>
+        <button type="button" onClick={onBrake}>
           Apply Brake
         </button>
       </div>
@@ -30,8 +35,4 @@ const mapStateToProps = state => ({
   speed: state,
 })
 
-const mapDispatchToProps = () => ({
-  speedUp: accelerate,
-  brea: brake,
-})
-export default connect(mapStateToProps, mapDispatchToProps)(Speedometer)
+export default connect(mapStateToProps, {accelerate, brake})(Speedometer)
